@@ -1,0 +1,13 @@
+spring:
+  config:
+    import: ""
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration
+      - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+      - org.springframework.boot.autoconfigure.flyway.FlywayAutoConfiguration
+      - org.springframework.cloud.config.client.ConfigClientAutoConfiguration
+
+eureka:
+  client:
+    enabled: false

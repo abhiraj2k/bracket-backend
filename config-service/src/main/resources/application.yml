@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: config-service
+  profiles:
+    active: native
+  cloud:
+    config:
+      server:
+        native:
+          # Resolved relative to workingDirectory (project root) when run via Maven
+          search-locations: file:${CONFIG_REPO_PATH:./config-repo}
+
+server:
+  port: 8888
+
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info

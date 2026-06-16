@@ -1,0 +1,49 @@
+spring:
+  cloud:
+    gateway:
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowed-origins: "*"
+            allowed-methods:
+              - GET
+              - POST
+              - PUT
+              - PATCH
+              - DELETE
+              - OPTIONS
+            allowed-headers: "*"
+            allow-credentials: false
+      routes:
+        - id: user-service-users
+          uri: lb://user-service
+          predicates:
+            - Path=/api/v1/users/**
+        - id: user-service-accounts
+          uri: lb://user-service
+          predicates:
+            - Path=/api/v1/accounts/**
+        - id: metadata-service-categories
+          uri: lb://metadata-service
+          predicates:
+            - Path=/api/v1/categories/**
+        - id: metadata-service-tags
+          uri: lb://metadata-service
+          predicates:
+            - Path=/api/v1/tags/**
+        - id: ledger-service
+          uri: lb://ledger-service
+          predicates:
+            - Path=/api/v1/transactions/**
+        - id: budget-service
+          uri: lb://budget-service
+          predicates:
+            - Path=/api/v1/budgets/**
+        - id: scheduler-service
+          uri: lb://scheduler-service
+          predicates:
+            - Path=/api/v1/recurring-transactions/**
+        - id: reporting-service
+          uri: lb://reporting-service
+          predicates:
+            - Path=/api/v1/reports/**
