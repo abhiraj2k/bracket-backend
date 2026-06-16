@@ -4,9 +4,50 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Repository status
+## Build & run
 
-This repository currently contains **only design/planning documents** (an Obsidian vault under `Expense Tracker/`) for an Expense Tracker backend that has not been implemented yet. There is no source code, build tooling, or test suite yet. When implementation begins, this file should be updated with real build/lint/test commands and a description of the actual code layout.
+```bash
+# Start infra (Postgres 16 + Redis 7)
+docker-compose up -d
+
+# Build all 10 modules (skip tests — all are @Disabled integration tests)
+mvn -DskipTests clean install
+
+# Start services in order (separate terminals)
+mvn -pl discovery-service spring-boot:run   # Eureka — port 8761
+mvn -pl config-service spring-boot:run      # Config Server — port 8888
+mvn -pl user-service spring-boot:run        # port 8081
+mvn -pl metadata-service spring-boot:run    # port 8082
+mvn -pl ledger-service spring-boot:run      # port 8083
+mvn -pl budget-service spring-boot:run      # port 8084
+mvn -pl scheduler-service spring-boot:run   # port 8085
+mvn -pl reporting-service spring-boot:run   # port 8086
+mvn -pl gateway-service spring-boot:run     # Gateway — port 8080 (start last)
+```
+
+**Eureka dashboard:** http://localhost:8761  
+**API entry point:** http://localhost:8080/api/v1/...
+
+## Module layout
+
+```
+expense-tracker/
+├── common/               — shared enums, exceptions, DTOs, AuditableEntity
+├── discovery-service/    — Eureka server (port 8761)
+├── config-service/       — Spring Cloud Config native (port 8888, serves config-repo/)
+├── gateway-service/      — Spring Cloud Gateway + CORS routes (port 8080)
+├── user-service/         — household, app_user, account (port 8081)
+├── metadata-service/     — category, tag, Redis cache (port 8082)
+├── ledger-service/       — transaction_header, line_item (port 8083)
+├── budget-service/       — budget_goal, budget_period (port 8084)
+├── scheduler-service/    — recurring_transaction + ShedLock (port 8085)
+├── reporting-service/    — read-only reports, no owned tables (port 8086)
+├── config-repo/          — per-service yml files served by config-service
+├── docker-compose.yml    — Postgres + Redis
+└── docs/scaffold-plan.md — scaffold implementation log
+```
+
+Each domain service follows the same structure: `controller/`, `service/`, `repository/`, `entity/`, `dto/`, `exception/`, `config/` under `src/main/java/com/expensetracker/<service>/`.
 
 ## Document map
 

@@ -3,16 +3,16 @@
 ## Phases
 
 - [x] Phase 0 — Root project & infra
-- [ ] Phase 1 — `common` module
-- [ ] Phase 2 — `discovery-service` + `config-service`
-- [ ] Phase 3 — `gateway-service`
-- [ ] Phase 4 — `user-service`
-- [ ] Phase 5 — `metadata-service`
-- [ ] Phase 6 — `ledger-service`
-- [ ] Phase 7 — `budget-service`
-- [ ] Phase 8 — `scheduler-service`
-- [ ] Phase 9 — `reporting-service`
-- [ ] Phase 10 — Final verification
+- [x] Phase 1 — `common` module
+- [x] Phase 2 — `discovery-service` + `config-service`
+- [x] Phase 3 — `gateway-service`
+- [x] Phase 4 — `user-service`
+- [x] Phase 5 — `metadata-service`
+- [x] Phase 6 — `ledger-service`
+- [x] Phase 7 — `budget-service`
+- [x] Phase 8 — `scheduler-service`
+- [x] Phase 9 — `reporting-service`
+- [ ] Phase 10 — Full build verification (`mvn clean install`) — requires Java 21 + Maven
 
 ## Conventions
 
