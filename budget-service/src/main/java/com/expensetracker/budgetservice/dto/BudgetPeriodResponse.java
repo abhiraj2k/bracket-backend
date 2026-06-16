@@ -1,0 +1,37 @@
+package com.expensetracker.budgetservice.dto;
+
+import com.expensetracker.budgetservice.entity.BudgetPeriod;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.UUID;
+
+@Getter @AllArgsConstructor
+public class BudgetPeriodResponse {
+    private UUID id;
+    private UUID budgetGoalId;
+    private String goalName;
+    private int periodMonth;
+    private int periodYear;
+    private BigDecimal startingBalance;
+    private BigDecimal spentAmount;
+    private BigDecimal remainingAmount;
+    private BigDecimal percentageUsed;
+
+    public static BudgetPeriodResponse from(BudgetPeriod p) {
+        BigDecimal remaining = p.getStartingBalance().subtract(p.getSpentAmount());
+        BigDecimal pct = BigDecimal.ZERO;
+        if (p.getStartingBalance().compareTo(BigDecimal.ZERO) > 0) {
+            pct = p.getSpentAmount()
+                    .multiply(BigDecimal.valueOf(100))
+                    .divide(p.getStartingBalance(), 2, RoundingMode.HALF_UP);
+        }
+        return new BudgetPeriodResponse(
+                p.getId(), p.getBudgetGoal().getId(), p.getBudgetGoal().getName(),
+                p.getPeriodMonth(), p.getPeriodYear(),
+                p.getStartingBalance(), p.getSpentAmount(), remaining, pct
+        );
+    }
+}

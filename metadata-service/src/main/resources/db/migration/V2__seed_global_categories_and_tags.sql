@@ -1,0 +1,53 @@
+-- Seed immutable global category and tag dictionary. Never UPDATE/DELETE these rows.
+
+-- ── INCOME root categories ───────────────────────────────────────────────────
+INSERT INTO category (id, name, parent_category_id, category_type, is_global) VALUES
+  ('00000000-0000-0000-0001-000000000001', 'Salary',             NULL, 'INCOME', TRUE),
+  ('00000000-0000-0000-0001-000000000002', 'Business Income',    NULL, 'INCOME', TRUE),
+  ('00000000-0000-0000-0001-000000000003', 'Investment Returns', NULL, 'INCOME', TRUE),
+  ('00000000-0000-0000-0001-000000000004', 'Rental Income',      NULL, 'INCOME', TRUE),
+  ('00000000-0000-0000-0001-000000000005', 'Other Income',       NULL, 'INCOME', TRUE);
+
+-- ── EXPENSE root categories ──────────────────────────────────────────────────
+INSERT INTO category (id, name, parent_category_id, category_type, is_global) VALUES
+  ('00000000-0000-0000-0002-000000000001', 'Food & Dining',   NULL, 'EXPENSE', TRUE),
+  ('00000000-0000-0000-0002-000000000002', 'Transportation',  NULL, 'EXPENSE', TRUE),
+  ('00000000-0000-0000-0002-000000000003', 'Housing',         NULL, 'EXPENSE', TRUE),
+  ('00000000-0000-0000-0002-000000000004', 'Entertainment',   NULL, 'EXPENSE', TRUE),
+  ('00000000-0000-0000-0002-000000000005', 'Healthcare',      NULL, 'EXPENSE', TRUE),
+  ('00000000-0000-0000-0002-000000000006', 'Shopping',        NULL, 'EXPENSE', TRUE),
+  ('00000000-0000-0000-0002-000000000007', 'Education',       NULL, 'EXPENSE', TRUE),
+  ('00000000-0000-0000-0002-000000000008', 'Utilities',       NULL, 'EXPENSE', TRUE),
+  ('00000000-0000-0000-0002-000000000009', 'Personal Care',   NULL, 'EXPENSE', TRUE),
+  ('00000000-0000-0000-0002-000000000010', 'Other Expense',   NULL, 'EXPENSE', TRUE);
+
+-- ── EXPENSE sub-categories (level 2 only per UI cap rule) ───────────────────
+INSERT INTO category (id, name, parent_category_id, category_type, is_global) VALUES
+  -- Food & Dining
+  ('00000000-0000-0000-0003-000000000001', 'Groceries',       '00000000-0000-0000-0002-000000000001', 'EXPENSE', TRUE),
+  ('00000000-0000-0000-0003-000000000002', 'Restaurants',     '00000000-0000-0000-0002-000000000001', 'EXPENSE', TRUE),
+  ('00000000-0000-0000-0003-000000000003', 'Coffee & Snacks', '00000000-0000-0000-0002-000000000001', 'EXPENSE', TRUE),
+  -- Transportation
+  ('00000000-0000-0000-0003-000000000004', 'Fuel',            '00000000-0000-0000-0002-000000000002', 'EXPENSE', TRUE),
+  ('00000000-0000-0000-0003-000000000005', 'Public Transit',  '00000000-0000-0000-0002-000000000002', 'EXPENSE', TRUE),
+  ('00000000-0000-0000-0003-000000000006', 'Taxi & Cab',      '00000000-0000-0000-0002-000000000002', 'EXPENSE', TRUE),
+  -- Housing
+  ('00000000-0000-0000-0003-000000000007', 'Rent',            '00000000-0000-0000-0002-000000000003', 'EXPENSE', TRUE),
+  ('00000000-0000-0000-0003-000000000008', 'Maintenance',     '00000000-0000-0000-0002-000000000003', 'EXPENSE', TRUE),
+  -- Healthcare
+  ('00000000-0000-0000-0003-000000000009', 'Doctor Visits',   '00000000-0000-0000-0002-000000000005', 'EXPENSE', TRUE),
+  ('00000000-0000-0000-0003-000000000010', 'Medicines',       '00000000-0000-0000-0002-000000000005', 'EXPENSE', TRUE),
+  -- Utilities
+  ('00000000-0000-0000-0003-000000000011', 'Electricity',     '00000000-0000-0000-0002-000000000008', 'EXPENSE', TRUE),
+  ('00000000-0000-0000-0003-000000000012', 'Internet',        '00000000-0000-0000-0002-000000000008', 'EXPENSE', TRUE),
+  ('00000000-0000-0000-0003-000000000013', 'Mobile Recharge', '00000000-0000-0000-0002-000000000008', 'EXPENSE', TRUE);
+
+-- ── Global tags ───────────────────────────────────────────────────────────────
+INSERT INTO tag (id, name, is_global) VALUES
+  ('00000000-0000-0000-0004-000000000001', 'Essential',    TRUE),
+  ('00000000-0000-0000-0004-000000000002', 'Discretionary',TRUE),
+  ('00000000-0000-0000-0004-000000000003', 'Investment',   TRUE),
+  ('00000000-0000-0000-0004-000000000004', 'Recurring',    TRUE),
+  ('00000000-0000-0000-0004-000000000005', 'One-time',     TRUE),
+  ('00000000-0000-0000-0004-000000000006', 'Tax Deductible', TRUE),
+  ('00000000-0000-0000-0004-000000000007', 'Reimbursable', TRUE);
