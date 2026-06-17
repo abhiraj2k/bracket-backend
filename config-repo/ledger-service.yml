@@ -19,3 +19,11 @@ spring:
     schemas: ledger_service
     create-schemas: true
     default-schema: ledger_service
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      budgetService:
+        slidingWindowSize: 10
+        failureRateThreshold: 50
+        waitDurationInOpenState: 10s

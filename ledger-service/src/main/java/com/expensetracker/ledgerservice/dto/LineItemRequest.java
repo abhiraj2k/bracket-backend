@@ -15,6 +15,8 @@ public class LineItemRequest {
 
     private UUID categoryId;
 
+    private UUID budgetGoalId;
+
     @NotNull @DecimalMin(value = "0.01", message = "line item amount must be > 0")
     private BigDecimal amount;
 

@@ -49,6 +49,7 @@ public class TransactionService {
             TransactionLineItem item = new TransactionLineItem();
             item.setTransaction(header);
             item.setCategoryId(li.getCategoryId());
+            item.setBudgetGoalId(li.getBudgetGoalId());
             item.setAmount(li.getAmount());
             item.setTagIds(li.getTagIds());
             header.getLineItems().add(item);
@@ -57,8 +58,11 @@ public class TransactionService {
         TransactionHeader saved = headerRepo.save(header);
 
         if (request.getTransactionType() == TransactionType.EXPENSE) {
+            List<LineItemExpense> lineItemExpenses = saved.getLineItems().stream()
+                    .map(li -> new LineItemExpense(li.getCategoryId(), li.getAmount(), li.getBudgetGoalId()))
+                    .toList();
             budgetClient.notifyExpense(
-                    new ExpenseEventRequest(userId, saved.getTransactionDate(), saved.getTotalAmount()));
+                    new ExpenseEventRequest(userId, saved.getTransactionDate(), lineItemExpenses));
         }
 
         return TransactionResponse.from(saved);

@@ -12,9 +12,11 @@ public class BudgetGoalResponse {
     private UUID id;
     private String name;
     private BigDecimal targetAmount;
+    private String budgetType;
     private Boolean isActive;
 
     public static BudgetGoalResponse from(BudgetGoal g) {
-        return new BudgetGoalResponse(g.getId(), g.getName(), g.getTargetAmount(), g.getIsActive());
+        return new BudgetGoalResponse(g.getId(), g.getName(), g.getTargetAmount(),
+                g.getBudgetType(), g.getIsActive());
     }
 }

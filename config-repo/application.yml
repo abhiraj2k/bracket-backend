@@ -20,3 +20,8 @@ management:
 logging:
   level:
     com.expensetracker: DEBUG
+
+app:
+  jwt:
+    secret: KESYsfa03zyiBQrCkyssfZOAd+HVhM88XTzQr7kjpfw=
+    expiry-seconds: 86400

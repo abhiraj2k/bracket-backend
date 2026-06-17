@@ -24,6 +24,9 @@ public class TransactionLineItem {
     @Column(name = "category_id")
     private UUID categoryId;
 
+    @Column(name = "budget_goal_id")
+    private UUID budgetGoalId;
+
     @Column(nullable = false, precision = 15, scale = 2)
     private BigDecimal amount;
 

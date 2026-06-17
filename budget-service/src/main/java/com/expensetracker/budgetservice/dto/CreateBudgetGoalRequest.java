@@ -17,4 +17,6 @@ public class CreateBudgetGoalRequest {
 
     @NotNull @DecimalMin("0.01")
     private BigDecimal targetAmount;
+
+    private String budgetType = "CUSTOM";
 }

@@ -19,6 +19,7 @@ public class BudgetPeriodResponse {
     private BigDecimal spentAmount;
     private BigDecimal remainingAmount;
     private BigDecimal percentageUsed;
+    private String alertLevel;
 
     public static BudgetPeriodResponse from(BudgetPeriod p) {
         BigDecimal remaining = p.getStartingBalance().subtract(p.getSpentAmount());
@@ -28,10 +29,20 @@ public class BudgetPeriodResponse {
                     .multiply(BigDecimal.valueOf(100))
                     .divide(p.getStartingBalance(), 2, RoundingMode.HALF_UP);
         }
+        String alertLevel = computeAlertLevel(p.getBudgetGoal().getBudgetType(), pct);
         return new BudgetPeriodResponse(
                 p.getId(), p.getBudgetGoal().getId(), p.getBudgetGoal().getName(),
                 p.getPeriodMonth(), p.getPeriodYear(),
-                p.getStartingBalance(), p.getSpentAmount(), remaining, pct
+                p.getStartingBalance(), p.getSpentAmount(), remaining, pct, alertLevel
         );
+    }
+
+    private static String computeAlertLevel(String budgetType, BigDecimal pct) {
+        double p = pct.doubleValue();
+        return switch (budgetType) {
+            case "NEEDS", "WANTS" -> p >= 100 ? "ALERT" : p >= 80 ? "WARNING" : "OK";
+            case "INVESTMENTS" -> p >= 100 ? "ALERT" : p >= 50 ? "MILESTONE" : "OK";
+            default -> p >= 100 ? "ALERT" : "OK";
+        };
     }
 }

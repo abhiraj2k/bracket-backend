@@ -27,6 +27,7 @@ public class BudgetGoalService {
         goal.setUserId(userId);
         goal.setName(request.getName());
         goal.setTargetAmount(request.getTargetAmount());
+        goal.setBudgetType(request.getBudgetType() != null ? request.getBudgetType() : "CUSTOM");
         goal = goalRepo.save(goal);
 
         LocalDate now = LocalDate.now();

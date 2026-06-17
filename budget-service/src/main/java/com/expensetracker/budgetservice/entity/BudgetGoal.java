@@ -24,6 +24,9 @@ public class BudgetGoal {
     @Column(name = "target_amount", nullable = false, precision = 15, scale = 2)
     private BigDecimal targetAmount;
 
+    @Column(name = "budget_type", nullable = false, length = 20)
+    private String budgetType = "CUSTOM";
+
     @Column(name = "is_active", nullable = false)
     private Boolean isActive = true;
 }

@@ -1,6 +1,7 @@
 package com.expensetracker.userservice.controller;
 
 import com.expensetracker.common.dto.ApiResponse;
+import com.expensetracker.userservice.dto.AuthResponse;
 import com.expensetracker.userservice.dto.RegisterRequest;
 import com.expensetracker.userservice.dto.UserResponse;
 import com.expensetracker.userservice.service.UserService;
@@ -8,6 +9,8 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/users")
@@ -18,7 +21,12 @@ public class UserController {
 
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
-    public ApiResponse<UserResponse> register(@Valid @RequestBody RegisterRequest request) {
+    public ApiResponse<AuthResponse> register(@Valid @RequestBody RegisterRequest request) {
         return ApiResponse.ok("User registered", userService.register(request));
+    }
+
+    @GetMapping("/me")
+    public ApiResponse<UserResponse> me(@RequestHeader("X-User-Id") String userId) {
+        return ApiResponse.ok(userService.getById(UUID.fromString(userId)));
     }
 }

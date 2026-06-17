@@ -24,3 +24,11 @@ shedlock:
   defaults:
     lock-at-most-for: PT10M
     lock-at-least-for: PT1M
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      ledgerService:
+        slidingWindowSize: 10
+        failureRateThreshold: 50
+        waitDurationInOpenState: 10s
