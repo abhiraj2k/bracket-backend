@@ -1,5 +1,4 @@
-# Expense Tracker MVP1
-
+# Bracket
 Personal finance ledger with strict double-entry-style ledger, zero-based budgeting, and credit card liability tracking.
 
 ## Stack
