@@ -20,3 +20,12 @@ logs/
 
 .DS_Store
 Thumbs.db
+
+# Claude Code local settings (machine-specific)
+.claude/settings.local.json
+
+# Obsidian editor config (machine-specific)
+**/.obsidian/
+
+# Claude Code docs
+./docs

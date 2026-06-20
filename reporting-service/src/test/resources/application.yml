@@ -1,9 +1,0 @@
-spring:
-  config:
-    import: ""
-  autoconfigure:
-    exclude:
-      - org.springframework.cloud.config.client.ConfigClientAutoConfiguration
-eureka:
-  client:
-    enabled: false

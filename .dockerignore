@@ -1,0 +1,8 @@
+**/target/
+**/.git/
+**/node_modules/
+*.md
+docker-compose.yml
+infra/
+.env
+.env.*
